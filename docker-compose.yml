@@ -1,4 +1,18 @@
 services:
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      #- ./index.php:/var/www/html/index.php
+      - .:/var/www/html/
+      - ./images/:/var/www/html/images/
+    environment:
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+
   mysql:
     image: mariadb:10.8.3
     container_name: mysql_container
