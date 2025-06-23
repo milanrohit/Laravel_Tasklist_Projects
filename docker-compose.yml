@@ -1,20 +1,4 @@
 services:
-  php-apache:
-    build:
-      context: ./image_retriever
-      dockerfile: ../dockerfile
-    container_name: php_apache_container
-    ports:
-      - "8080:80"
-    volumes:
-      - ./image_retriever:/var/www/html
-    depends_on:
-      - mysql
-    restart: unless-stopped
-    environment:
-      APACHE_RUN_USER: www-data
-      APACHE_RUN_GROUP: www-data
-
   mysql:
     image: mariadb:10.8.3
     container_name: mysql_container
