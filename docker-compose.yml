@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: dockerfile
     ports:
-      - "80:80"
+      - "81:80"
     volumes:
       #- ./index.php:/var/www/html/index.php
       - .:/var/www/html/
@@ -20,11 +20,11 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-images_db}
-      MYSQL_USER: ${MYSQL_USER:-image_user}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-image_pass}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-laravel_tasklist_retriver}
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
 
