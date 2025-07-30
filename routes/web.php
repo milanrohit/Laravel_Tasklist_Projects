@@ -1,29 +1,20 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('Home_page');
-
-Route::get('/hello', function () {
-    return 'hello';
-})->name('hello');
-
-Route::get('/greet/{name}', function ($name) {
-    return 'hello ' . $name;
-})->name('Dynamic_url_demo');
-
-Route::get('/hallo', function () {
-    return redirect()->route('hello');
-})->name('redirect_url_to_active_url');
-
-Route::fallback(function () {
-    return view('Error404');
-})->name('Error_404');
+use App\Models\Task;
 
 /* Start project related routes */
 
 Route::get('/', function () {
-    return view('home');
-})->name('Home_page');
+    return redirect()->route('tasks.index');
+});
+
+Route::get('/tasks', function (){
+    //return view('tasks.index', ['tasks' => \App\Models\Task::all()]);
+    return view('tasks.index', ['tasks' => \App\Models\Task::latest()->get()]);
+})->name('tasks.index');
+
+Route::get('/tasks/{id}', function ($id) {
+    return view('tasks.show', ['tasks' => \App\Models\Task::findOrFail($id)]);
+})->name('tasks.show');
+
+?>

@@ -21,9 +21,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         // Create 2 unverified users
-        User::factory(2)->unverified()->create();
-
-        User::factory(2)->unverified()->create();
+        User::factory(4)->unverified()->create();
 
         // Create 20 tasks
         Task::factory(20)->create();
