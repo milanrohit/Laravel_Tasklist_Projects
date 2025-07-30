@@ -1,46 +1,73 @@
-<body class="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
-    <div class="min-h-screen px-6 py-10">
-        <header class="flex items-center justify-between mb-8">
+
+<!-- Required Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background: linear-gradient(to bottom right, #e0e7ff, #ede9fe);
+    }
+    .card:hover {
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
+    }
+    .task-status {
+        cursor: pointer;
+    }
+</style>
+
+<body class="min-vh-100">
+    <div class="container py-5">
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-start mb-5">
             <div>
-                <h1 class="text-5xl font-extrabold text-indigo-700">🏠 Home Dashboard</h1>
-                <p class="text-lg text-gray-700 mt-2">Welcome! Here’s an overview of your tasks and activities.</p>
+                <h1 class="display-4 fw-bold text-primary">🏠 Home Task Dashboard</h1>
+                <p class="lead text-muted">Welcome! Here’s an overview of your tasks and activities.</p>
             </div>
-            <a href="{{ route('tasks.create') }}" class="bg-indigo-500 text-white font-semibold px-6 py-3 rounded-full shadow hover:bg-indigo-600 transition">
+            <a href="{{ route('tasks.create') }}" class="btn btn-primary shadow-sm">
                 ➕ Add Task
             </a>
-        </header>
+        </div>
 
+        <!-- Tasks Section -->
         @if($tasks->count())
-        <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach($tasks as $task)
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition p-6 flex flex-col justify-between border border-indigo-100">
-                <div>
-                    <h3 class="text-2xl font-bold text-indigo-800">{{ $task->title }}</h3>
-                    <p class="text-base text-gray-600 mt-2">{{ Str::limit($task->long_description, 80, '...') }}</p>
-                </div>
-                <div class="mt-6 flex items-center justify-between">
-                    <a href="{{ route('tasks.show', $task->id) }}" class="text-indigo-600 hover:underline font-medium text-sm">Details →</a>
-                    <span onclick="toggleStatus({{ $task->id }})"
-                                class="cursor-pointer px-4 py-1 rounded-full text-xs font-semibold transition 
-                                             {{ $task->completed ? 'bg-green-400 text-white hover:brightness-110' : 'bg-gray-300 text-gray-700 hover:bg-gray-400' }}">
-                        {{ $task->completed ? 'Done' : 'Active' }}
-                    </span>
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title text-primary">{{ $task->title }}</h5>
+                            <p class="card-text text-muted">{{ Str::limit($task->long_description, 80, '...') }}</p>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <a href="{{ route('tasks.show', $task->id) }}" class="text-decoration-none text-primary">Details →</a>
+                            <span class="badge {{ $task->completed ? 'bg-success' : 'bg-secondary' }} task-status"
+                                  onclick="toggleStatus({{ $task->id }})">
+                                {{ $task->completed ? 'Done' : 'Active' }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             @endforeach
-        </section>
+        </div>
         @else
-        <div class="mt-16 text-center">
-            <div class="inline-block bg-indigo-100 border border-indigo-300 text-indigo-800 px-8 py-6 rounded-xl shadow">
-                <strong>Welcome!</strong> No tasks yet. <a href="#" class="text-indigo-600 underline font-medium">Create your first task</a> to get started.
+        <!-- Empty State -->
+        <div class="text-center mt-5">
+            <div class="alert alert-info d-inline-block px-5 py-4 rounded-pill shadow-sm">
+                <strong>Welcome!</strong> No tasks yet. <a href="{{ route('tasks.create') }}" class="alert-link">Create your first task</a> to get started.
             </div>
         </div>
         @endif
     </div>
 
+    <!-- Required Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
     <script>
         function toggleStatus(taskId) {
-            alert(`Interactive: You clicked status for Task #${taskId}. Time to hook up that AJAX magic!`);
+            console.log("Toggle clicked for Task #" + taskId);
+            alert("Task #" + taskId + " status toggle clicked! Here’s where AJAX magic goes.");
         }
     </script>
 </body>
+</html>
