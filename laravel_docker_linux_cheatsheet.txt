@@ -101,3 +101,12 @@ C:\WINDOWS\system32>netstat -aon | findstr :8000
   
 C:\WINDOWS\system32>taskkill /F /PID 4324
 SUCCESS: The process with PID 4324 has been terminated.
+
+
+/*
+In short:
+It resets your database (drops all tables), rebuilds it using migrations, 
+and then fills it with test data using seeders—all in one step.
+
+php artisan migrate:refresh --seed
+*/
