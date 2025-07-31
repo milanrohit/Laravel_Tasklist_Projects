@@ -1,36 +1,48 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
-// 404 Not Found route
+/* 🌐 Fallback Route for 404 Not Found */
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
 
-/* Start project related routes */
+/* 🚀 Project Routes */
 
+// Redirect root to tasks index
 Route::get('/', function () {
     return redirect()->route('tasks.index');
 });
 
-Route::get('/tasks/index', function (){
-    return view('/tasks/index', ['tasks' => \App\Models\Task::latest()->get()]);
+// Display all tasks
+Route::get('/tasks/index', function () {
+    return view('tasks.index', [
+        'tasks' => Task::latest()->get()
+    ]);
 })->name('tasks.index');
 
-// Route to store a new task
+// Show form to create a new task
 Route::get('/tasks/create', function () {
-    return view('/tasks/create');
+    return view('tasks.create');
 })->name('tasks.create');
 
-Route::get('/tasks/{id}/edit', function ($id) {
-    return view('/tasks/edit', ['tasks' => Task::findOrFail($id)]);
+// Show form to edit a specific task
+Route::get('/tasks/{task}/edit', function (Task $task) {
+    return view('tasks.edit', [
+        'task' => $task
+    ]);
 })->name('tasks.edit');
 
-Route::get('/tasks/{id}', function ($id) {
-    return view('/tasks/show', ['tasks' => Task::findOrFail($id)]);
+// Show details of a specific task
+Route::get('/tasks/{task}', function (Task $task) {
+    return view('tasks.show', [
+        'task' => $task
+    ]);
 })->name('tasks.show');
 
+// Store a new task
 Route::post('/tasks', function (Request $request) {
     $data = $request->validate([
         'title' => 'required|string|max:50',
@@ -38,30 +50,22 @@ Route::post('/tasks', function (Request $request) {
         'long_description' => 'required|string|max:50'
     ]);
 
-    $task = new Task();
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    $task->save();
+    $task = Task::create($data);
 
-    return redirect()->route('tasks.show',['id' => $task->id])->with('success', 'Task created successfully!');
+    return redirect()->route('tasks.show', ['task' => $task->id])
+        ->with('success', 'Task created successfully!');
 })->name('tasks.store');
 
-Route::put('/tasks/{id}', function ($id, Request $request) {
+// Update an existing task
+Route::put('/tasks/{task}', function (Task $task, Request $request) {
     $data = $request->validate([
         'title' => 'required|string|max:50',
         'description' => 'required|string|max:50',
         'long_description' => 'required|string|max:50'
     ]);
 
-    $task = Task ::findOrFail($id);
-    if (!$task) {
-        return redirect()->route('tasks.index')->with('error', 'Task not found!');
-    }
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    $task->save();
+    $task->update($data);
 
-    return redirect()->route('tasks.show',['id' => $task->id])->with('success', 'Task Update successfully!');
+    return redirect()->route('tasks.show', ['task' => $task->id])
+        ->with('success', 'Task updated successfully!');
 })->name('tasks.update');
