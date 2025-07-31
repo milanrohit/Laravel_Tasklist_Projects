@@ -61,13 +61,5 @@
 
     <!-- Required Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JavaScript -->
-    <script>
-        function toggleStatus(taskId) {
-            console.log("Toggle clicked for Task #" + taskId);
-            alert("Task #" + taskId + " status toggle clicked! Here’s where AJAX magic goes.");
-        }
-    </script>
 </body>
 </html>
