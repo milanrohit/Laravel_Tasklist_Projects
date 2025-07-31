@@ -12,6 +12,14 @@
 <body class="min-vh-100">
 
   <div class="container py-5">
+    <div class="mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {{ Breadcrumbs::render('tasks.index') }}
+            </ol>
+        </nav>
+    </div>
+
     <!-- Header -->
     <header class="dashboard-header px-4 py-4 mb-5 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-4">
       <div>

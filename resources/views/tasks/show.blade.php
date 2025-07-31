@@ -1,7 +1,20 @@
 @extends('layouts.app')
 
+@section('styles')
+  <!-- Bootstrap & Icons -->
+  @include('partials.cdn')
+  <link rel="stylesheet" href="{{ asset('css/taskapp.css') }}">
+
 @section('content')
 <div class="container py-5">
+    <div class="mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {{ Breadcrumbs::render('tasks.show', $task) }}
+            </ol>
+        </nav>
+    </div>
+
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top">
             <h5 class="mb-0">Current Task Details</h5>

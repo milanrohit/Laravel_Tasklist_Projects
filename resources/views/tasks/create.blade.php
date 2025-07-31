@@ -8,6 +8,13 @@
 
 @section('content')
 <div class="container py-5">
+    <div class="mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {{ Breadcrumbs::render('tasks.create') }}
+            </ol>
+        </nav>
+    </div>
     <form action="{{ route('tasks.store') }}" method="POST">
         @csrf
         <div class="card shadow-lg border-0 rounded-4 animate__animated animate__fadeIn task-card">

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 
 /* 🌐 Fallback Route for 404 Not Found */
@@ -43,28 +44,18 @@ Route::get('/tasks/{task}', function (Task $task) {
 })->name('tasks.show');
 
 // Store a new task
-Route::post('/tasks', function (Request $request) {
-    $data = $request->validate([
-        'title' => 'required|string|max:50',
-        'description' => 'required|string|max:50',
-        'long_description' => 'required|string|max:50'
-    ]);
-
-    $task = Task::create($data);
+Route::post('/tasks', function (TaskRequest $request) {
+    $task = Task::create($request->validated());
 
     return redirect()->route('tasks.show', ['task' => $task->id])
         ->with('success', 'Task created successfully!');
 })->name('tasks.store');
 
 // Update an existing task
-Route::put('/tasks/{task}', function (Task $task, Request $request) {
-    $data = $request->validate([
-        'title' => 'required|string|max:50',
-        'description' => 'required|string|max:50',
-        'long_description' => 'required|string|max:50'
-    ]);
-
-    $task->update($data);
+Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
+    
+    // Ensure the task belongs to the authenticated user
+    $task->update($request->validated());
 
     return redirect()->route('tasks.show', ['task' => $task->id])
         ->with('success', 'Task updated successfully!');
