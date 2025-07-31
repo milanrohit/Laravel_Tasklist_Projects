@@ -6,7 +6,7 @@ body {
   color: #333;
 }
 
-/* ========== COMPONENTS ========== */
+/* ========== HEADER COMPONENTS ========== */
 .dashboard-header {
   background: linear-gradient(135deg, #ffffff, #f0f4ff);
   border-radius: 1.5rem;
@@ -30,8 +30,11 @@ body {
 .btn-primary,
 .btn-gradient {
   background-color: #0d6efd;
-  border: none;
   color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
   transition: all 0.3s ease;
 }
 
@@ -45,7 +48,21 @@ body {
   transform: scale(1.03);
 }
 
-/* ========== CARDS ========== */
+.btn-outline-danger {
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* ========== CARD STYLES ========== */
 .card {
   border: none;
   border-radius: 1rem;
@@ -81,7 +98,7 @@ body {
   cursor: pointer;
 }
 
-/* ========== FORMS ========== */
+/* ========== FORM STYLING ========== */
 .form-label i {
   margin-right: 6px;
 }
@@ -114,4 +131,36 @@ body {
   content: ">";
   margin: 0 0.5rem;
   color: #6c757d;
+}
+
+.btn-outline-primary {
+    border: 1px solid #0d6efd;
+    background-color: transparent;
+    color: #0d6efd;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    transform: scale(1.03);
+}
+
+.btn-outline-danger {
+    border: 1px solid #dc3545;
+    background-color: transparent;
+    color: #dc3545;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+    transform: scale(1.03);
 }

@@ -1,9 +1,16 @@
 @extends('layouts.app')
 
 @section('styles')
-  <!-- Bootstrap & Icons -->
-  @include('partials.cdn')
-  <link rel="stylesheet" href="{{ asset('css/taskapp.css') }}">
+    <!-- Bootstrap & Icons -->
+    @include('partials.cdn')
+    <link rel="stylesheet" href="{{ asset('css/taskapp.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #success-alert {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+@endsection
 
 @section('content')
 <div class="container py-5">
@@ -19,7 +26,7 @@
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top">
             <h5 class="mb-0">Current Task Details</h5>
             <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-outline-light">
-                <i class="bi bi-arrow-right"></i> Back
+                <i class="bi bi-arrow-left"></i> Back
             </a>
         </div>
 
@@ -40,9 +47,7 @@
                     </div>
 
                     <div class="flex-grow-1">
-                        <h5 class="fw-bold text-dark mb-1">
-                            {{ $task->title }}
-                        </h5>
+                        <h5 class="fw-bold text-dark mb-1">{{ $task->title }}</h5>
                         <span class="badge bg-info text-white px-3 py-1 rounded-pill">Task Overview</span>
                     </div>
                 </div>
@@ -88,6 +93,19 @@
             </div>
         </div>
 
+        <div class="card-footer bg-white px-4 py-3 d-flex justify-content-end gap-2 rounded-bottom shadow-sm">
+            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-outline-primary d-flex align-items-center">
+                <i class="bi bi-pencil-square me-2"></i> Edit
+            </a>
+
+            <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger d-flex align-items-center">
+                    <i class="bi bi-trash me-2"></i> Delete
+                </button>
+            </form>
+        </div>
         @else
         <div class="card-body">
             <p class="text-muted">No task found.</p>
@@ -97,13 +115,7 @@
 </div>
 @endsection
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    #success-alert {
-        transition: opacity 0.5s ease-in-out;
-    }
-</style>
-
+@section('scripts')
 <script>
     $(document).ready(function() {
         $('#success-alert').fadeOut(3000, function() {
@@ -112,3 +124,5 @@
         });
     });
 </script>
+@endsection
+@include('partials.cdn')
