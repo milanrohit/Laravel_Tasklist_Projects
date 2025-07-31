@@ -4,7 +4,7 @@
 <div class="container py-5">
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top">
-            <h5 class="mb-0">Create Task</h5>
+            <h5 class="mb-0">Current Task Details</h5>
             <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-outline-light">
                 <i class="bi bi-arrow-right"></i> Back
             </a>
@@ -16,43 +16,80 @@
             </div>
         @endif
 
-        @if(isset($tasks))
+        @isset($task)
         <div class="card-body">
-            <h5 class="card-title">{{ $tasks->description }}</h5>
-            <p class="card-text text-muted">{{ $tasks->long_description }}</p>
-            <ul class="list-group list-group-flush mb-3">
-                <li class="list-group-item">
-                    <strong>Status:</strong> 
-                    <span class="badge {{ $tasks->completed ? 'bg-success' : 'bg-secondary' }}">
-                        {{ $tasks->completed ? 'Completed' : 'Pending' }}
-                    </span>
-                </li>
-                <li class="list-group-item">
-                    <strong>Created At:</strong> {{ $tasks->created_at->format('Y-m-d H:i:s') }}
-                </li>
-                <li class="list-group-item">
-                    <strong>Updated At:</strong> {{ $tasks->updated_at->format('Y-m-d H:i:s') }}
-                </li>
-            </ul>
+            <div class="mb-4 p-4 bg-light rounded shadow-sm border">
+                <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-white rounded shadow-sm border">
+                    <div class="flex-shrink-0">
+                        <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-check2-circle fs-4"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <h5 class="fw-bold text-dark mb-1">
+                            {{ $task->title }}
+                        </h5>
+                        <span class="badge bg-info text-white px-3 py-1 rounded-pill">Task Overview</span>
+                    </div>
+                </div>
+
+                <div class="ps-5">
+                    <p class="fs-5 text-dark mb-2">
+                        <i class="bi bi-chat-left-text me-2 text-secondary"></i>{{ $task->description }}
+                    </p>
+                    <p class="text-muted fst-italic">
+                        <i class="bi bi-journal-text me-2 text-secondary"></i>{{ $task->long_description }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light">
+                        <h6 class="text-secondary mb-2">Status</h6>
+                        <span class="badge px-3 py-2 {{ $task->completed ? 'bg-success' : 'bg-warning text-dark' }}">
+                            <i class="bi {{ $task->completed ? 'bi-check-circle-fill' : 'bi-hourglass-split' }}"></i>
+                            {{ $task->completed ? 'Completed' : 'Pending' }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light">
+                        <h6 class="text-secondary mb-2">Created At</h6>
+                        <p class="mb-0 text-dark">
+                            <i class="bi bi-calendar-plus me-1"></i>{{ $task->created_at->format('d M Y, H:i') }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light">
+                        <h6 class="text-secondary mb-2">Updated At</h6>
+                        <p class="mb-0 text-dark">
+                            <i class="bi bi-calendar-check me-1"></i>{{ $task->updated_at->format('d M Y, H:i') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
+
         @else
         <div class="card-body">
             <p class="text-muted">No task found.</p>
         </div>
-        @endif
+        @endisset
     </div>
 </div>
 @endsection
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
     #success-alert {
         transition: opacity 0.5s ease-in-out;
     }
 </style>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function() {
