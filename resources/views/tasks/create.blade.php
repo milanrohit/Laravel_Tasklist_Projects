@@ -55,25 +55,25 @@
             <div class="card-body px-4 py-5">
                 <div class="mb-4">
                     <label for="title" class="form-label"><i class="bi bi-card-text"></i> Task Title</label>
-                    <input type="text" name="title" id="title" class="form-control rounded-3 shadow-sm" placeholder="Enter task title" required>
+                    <input type="text" name="title" id="title" value="{{old('title')}}"   class="form-control rounded-3 shadow-sm" placeholder="Enter task title" required>
                     @error('title')
-                        <div class="error-msg">{{ $message }}</div>
+                        <div class="error-msg" id="div_title">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="description" class="form-label"><i class="bi bi-chat-left-text"></i> Short Description</label>
-                    <input type="text" name="description" id="description" class="form-control rounded-3 shadow-sm" placeholder="Enter short description" required>
+                    <input type="text" name="description" id="description" value="{{old('description')}}" class="form-control rounded-3 shadow-sm" placeholder="Enter short description" required>
                     @error('description')
-                        <div class="error-msg">{{ $message }}</div>
+                        <div class="error-msg" id="div_description">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-5">
                     <label for="long_description" class="form-label"><i class="bi bi-journal-text"></i> Long Description</label>
-                    <textarea name="long_description" id="long_description" class="form-control rounded-3 shadow-sm" placeholder="Enter detailed description" style="height: 150px;"></textarea>
+                    <textarea name="long_description" id="long_description" value="{{old('long_description')}}" class="form-control rounded-3 shadow-sm" placeholder="Enter detailed description" style="height: 150px;"></textarea>
                     @error('long_description')
-                        <div class="error-msg">{{ $message }}</div>
+                        <div class="error-msg" id="div_long_description">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -86,16 +86,24 @@
 </div>
 @endsection
 
-@section('scripts')
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
-        // Simple frontend check before submission
-        $('form').on('submit', function(e) {
-            if (!$('#title').val().trim() || !$('#description').val().trim()) {
-                alert('Please fill in all required fields!');
-                e.preventDefault();
-            }
-        });
+    Document.$(document).ready(function () {
+        // Remove error messages after 3 seconds
+        /* setTimeout(function() {
+            $('.error-msg').remove();
+        }, 3000); */
+        
+        setTimeout(function() {
+            $('#div_title').remove();
+        }, 3000); // 3000 milliseconds = 3 seconds
+        setTimeout(function() {
+            $('#div_description').remove();
+        }, 4000); // 3000 milliseconds = 3 seconds
+        setTimeout(function() {
+            $('#div_long_description').remove();
+        }, 5000); // 3000 milliseconds = 3 seconds
+    });
+
     </script>
-@endsection
