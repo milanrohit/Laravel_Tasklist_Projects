@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
+use App\Http\Controllers\TaskController;
 use App\Models\Task;
 
 /* 🌐 Fallback Route for 404 Not Found */
@@ -10,40 +11,31 @@ Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
 
-/* 🚀 Project Routes */
-
-// Redirect root to tasks index
+/* 🚀 Home Route */
 Route::get('/', function () {
-    return redirect()->route('tasks.index');
-});
+    return view('tasks.index', [
+        'tasks' => Task::latest()->paginate(9) // Paginate tasks for better performance
+    ]);
+})->name('tasks.home');
 
-// Display all tasks
+/* 📋 Task Routes */
+
+// Index - Display all tasks (Controller-based)
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+
+// Index - Display all tasks (Closure-based, optional)
 Route::get('/tasks/index', function () {
     return view('tasks.index', [
         'tasks' => Task::latest()->get()
     ]);
-})->name('tasks.index');
+})->name('tasks.index.alt'); // Renamed to avoid route name conflict
 
-// Show form to create a new task
+// Create - Show form to create a new task
 Route::get('/tasks/create', function () {
     return view('tasks.create');
 })->name('tasks.create');
 
-// Show form to edit a specific task
-Route::get('/tasks/{task}/edit', function (Task $task) {
-    return view('tasks.edit', [
-        'task' => $task
-    ]);
-})->name('tasks.edit');
-
-// Show details of a specific task
-Route::get('/tasks/{task}', function (Task $task) {
-    return view('tasks.show', [
-        'task' => $task
-    ]);
-})->name('tasks.show');
-
-// Store a new task
+// Store - Save new task
 Route::post('/tasks', function (TaskRequest $request) {
     $task = Task::create($request->validated());
 
@@ -51,19 +43,32 @@ Route::post('/tasks', function (TaskRequest $request) {
         ->with('success', 'Task created successfully!');
 })->name('tasks.store');
 
-// Update an existing task
+// Show - Display a specific task
+Route::get($route = config('constants.tasks_task'), function (Task $task) {
+    return view('tasks.show', [
+        'task' => $task
+    ]);
+})->name('tasks.show');
+
+// Edit - Show form to edit a task
+Route::get('/tasks/{task}/edit', function (Task $task) {
+    return view('tasks.edit', [
+        'task' => $task
+    ]);
+})->name('tasks.edit');
+
+// Update - Save changes to a task
 Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
-    
-    // Ensure the task belongs to the authenticated user
     $task->update($request->validated());
 
     return redirect()->route('tasks.show', ['task' => $task->id])
         ->with('success', 'Task updated successfully!');
 })->name('tasks.update');
 
-// Delete a specific task
+// Delete - Remove a task
 Route::delete('/tasks/{task}', function (Task $task) {
     $task->delete();
+
     return redirect()->route('tasks.index')
         ->with('success', 'Task deleted successfully!');
 })->name('tasks.destroy');
