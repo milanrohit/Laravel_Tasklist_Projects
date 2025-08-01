@@ -1,4 +1,4 @@
-/* ========== GLOBAL STYLES ========== */
+/* ========== 1. GLOBAL STYLES ========== */
 body {
   background: linear-gradient(to right, #f0f4ff, #e8f0fe);
   background-color: #f8f9fa; /* fallback */
@@ -6,7 +6,72 @@ body {
   color: #333;
 }
 
-/* ========== HEADER COMPONENTS ========== */
+/* ========== 2. TYPOGRAPHY & UTILITY ========== */
+.error-msg {
+  font-size: 0.875rem;
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.form-label i {
+  margin-right: 6px;
+}
+
+/* ========== 3. BUTTON STYLES ========== */
+.btn-primary,
+.btn-gradient {
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.btn-primary:hover,
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #0b5ed7, #094dbf);
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+.btn-outline-primary,
+.btn-outline-danger {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary {
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+.btn-outline-danger {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+/* ========== 4. HEADER COMPONENTS ========== */
 .dashboard-header {
   background: linear-gradient(135deg, #ffffff, #f0f4ff);
   border-radius: 1.5rem;
@@ -26,43 +91,7 @@ body {
   }
 }
 
-/* ========== BUTTONS ========== */
-.btn-primary,
-.btn-gradient {
-  background-color: #0d6efd;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-gradient {
-  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
-}
-
-.btn-primary:hover,
-.btn-gradient:hover {
-  background: linear-gradient(135deg, #0b5ed7, #094dbf);
-  transform: scale(1.03);
-}
-
-.btn-outline-danger {
-  background-color: transparent;
-  color: #dc3545;
-  border: 1px solid #dc3545;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: #fff;
-}
-
-/* ========== CARD STYLES ========== */
+/* ========== 5. CARD STYLES ========== */
 .card {
   border: none;
   border-radius: 1rem;
@@ -79,14 +108,7 @@ body {
   font-weight: 600;
 }
 
-.empty-state {
-  background-color: #fff;
-  border-radius: 2rem;
-  padding: 2rem 3rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
-}
-
-/* ========== TASK STYLING ========== */
+/* ========== 6. TASK COMPONENTS ========== */
 .task-card {
   animation: fadeIn 0.5s ease-in;
 }
@@ -96,25 +118,26 @@ body {
   padding: 0.4rem 0.75rem;
   border-radius: 1rem;
   cursor: pointer;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ========== FORM STYLING ========== */
-.form-label i {
-  margin-right: 6px;
-}
-
-.error-msg {
-  font-size: 0.875rem;
-  color: #dc3545;
-  font-weight: bold;
-}
-
+/* ========== 7. PROGRESS BAR ========== */
 .progress {
   height: 6px;
   border-radius: 3px;
 }
 
-/* ========== BREADCRUMB ========== */
+/* ========== 8. EMPTY STATE ========== */
+.empty-state {
+  background-color: #fff;
+  border-radius: 2rem;
+  padding: 2rem 3rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+}
+
+/* ========== 9. BREADCRUMB ========== */
 .breadcrumb {
   background-color: transparent;
   padding: 0;
@@ -131,36 +154,4 @@ body {
   content: ">";
   margin: 0 0.5rem;
   color: #6c757d;
-}
-
-.btn-outline-primary {
-    border: 1px solid #0d6efd;
-    background-color: transparent;
-    color: #0d6efd;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.btn-outline-primary:hover {
-    background-color: #0d6efd;
-    color: #fff;
-    transform: scale(1.03);
-}
-
-.btn-outline-danger {
-    border: 1px solid #dc3545;
-    background-color: transparent;
-    color: #dc3545;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: #fff;
-    transform: scale(1.03);
 }
