@@ -9,8 +9,8 @@
 @section('content')
     <div class="container py-5">
         <div class="mb-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
                 {{ Breadcrumbs::render('tasks.edit', $task) }}
             </ol>
         </nav>
