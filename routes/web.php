@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use App\Http\Controllers\TaskController;
 use App\Models\Task;
+use App\config\constants;
+
 
 /* 🌐 Fallback Route for 404 Not Found */
 Route::fallback(function () {
@@ -40,7 +42,7 @@ Route::post('/tasks', function (TaskRequest $request) {
     $task = Task::create($request->validated());
 
     return redirect()->route('tasks.show', ['task' => $task->id])
-        ->with('success', 'Task created successfully!');
+        ->with('success', config('constants.task_created'));
 })->name('tasks.store');
 
 // Show - Display a specific task
@@ -62,13 +64,21 @@ Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
     $task->update($request->validated());
 
     return redirect()->route('tasks.show', ['task' => $task->id])
-        ->with('success', 'Task updated successfully!');
+        ->with('success', config('constants.task_updated'));
 })->name('tasks.update');
-
+ 
 // Delete - Remove a task
 Route::delete('/tasks/{task}', function (Task $task) {
     $task->delete();
 
     return redirect()->route('tasks.index')
-        ->with('success', 'Task deleted successfully!');
+        ->with('success', config('constants.task_deleted'));
 })->name('tasks.destroy');
+
+// Toggle completed status of a task
+Route::put('/tasks/{task}/toggle-completed', function (Task $task) {
+    $task->toggleStatus();
+    
+    return redirect()->route('tasks.index')
+        ->with('success', config('constants.task_completed'));
+})->name('tasks.toggle-completed');

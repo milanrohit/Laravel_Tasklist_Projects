@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use config\constants;
 
 class TaskController extends Controller
 {
     // Show all tasks &  // Paginate tasks
     public function index()
     {
-        $tasks = Task::paginate(9); // ✅ Use paginate instead of get()
+        $tasks = Task::orderBy('created_at', 'desc')->paginate(9);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -24,11 +25,15 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => config('validation.req_chk_max25'),
+            'description' => config('validation.req_chk_max25'),
+            'long_description' => 'nullable|string',
         ]);
 
         Task::create([
             'title' => $request->title,
+            'description' => $request->description,
+            'long_description' => $request->long_description,
             'completed' => false,
         ]);
 
@@ -67,14 +72,4 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted!');
     }
-
-    // Toggle status
-    public function toggleStatus(Task $task)
-    {
-        $task->completed = !$task->completed;
-        $task->save();
-
-        return response()->json(['status' => 'success']);
-    }
-
 }

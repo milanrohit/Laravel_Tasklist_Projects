@@ -40,4 +40,12 @@ class Task extends Model
     {
         return $query->where('completed', false);
     }
+
+    // toggleStatus method is removed as per the recent edits
+     public function toggleStatus()
+     {
+         $this->completed = !$this->completed;
+         $this->save();
+         return $this->completed;
+    }
 }

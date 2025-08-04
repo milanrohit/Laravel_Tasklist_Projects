@@ -28,3 +28,7 @@ Breadcrumbs::for('tasks.update', function ($trail, $task) {
     $trail->parent('tasks.show', $task);
     $trail->push('Update Task', route('tasks.update', $task->id));
 });
+Breadcrumbs::for('tasks.destroy', function ($trail, $task) {
+    $trail->parent('tasks.show', $task);
+    $trail->push('Delete Task', route('tasks.destroy', $task->id));
+});
