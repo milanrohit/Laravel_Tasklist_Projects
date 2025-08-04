@@ -26,7 +26,7 @@
 
     {{-- Flash Message --}}
     @if(session('success'))
-      <div class="alert alert-success m-3 fade show" id="success-alert" role="alert">
+      <div class="alert alert-success m-3 fade show" id="success_alert" role="alert">
         {{ session('success') }}
       </div>
     @endif
@@ -91,9 +91,24 @@
 
     {{-- Footer Actions --}}
     <div class="card-footer bg-white px-4 py-3 d-flex justify-content-end gap-2 rounded-bottom shadow-sm">
-      <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-outline-primary d-flex align-items-center" aria-label="Edit Task">
-        <i class="bi bi-pencil-square me-2"></i> Edit
-      </a>
+      {{-- Edit Button --}}
+      <form action="{{ route('tasks.edit', $task->id) }}" method="GET">
+        <button type="submit" class="btn btn-outline-primary d-flex align-items-center" aria-label="Edit Task">
+          <i class="bi bi-pencil-square me-2"></i> Edit
+        </button>
+      </form>
+
+      {{-- Toggle Completed Button --}}
+      <form action="{{ route('tasks.toggle-completed', $task->id) }}" method="POST" class="d-inline">
+        @csrf
+        @method('PUT')
+        <button type="submit" class="btn btn-outline-success d-flex align-items-center" aria-label="{{ $task->completed ? 'Mark as Pending' : 'Mark as Completed' }}">
+          <i class="bi {{ $task->completed ? 'bi-x-circle' : 'bi-check-circle' }} me-2"></i>
+          {{ $task->completed ? 'Mark as Pending' : 'Mark as Completed' }}
+        </button>
+      </form>
+      
+      {{-- Delete Button --}}
       <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?');">
         @csrf
         @method('DELETE')
@@ -102,7 +117,9 @@
         </button>
       </form>
     </div>
+
     @else
+    
     <div class="card-body">
       <p class="text-muted">No task found.</p>
     </div>
@@ -112,13 +129,5 @@
 @endsection
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
-        $('#success-alert').fadeOut(3000, function() {
-            $(this).remove();
-            window.location.href = "{{ route('tasks.index') }}";
-        });
-    });
-</script>
+    <script src="{{ asset('js/taskapp.js') }}"></script>
 @endsection
-@include('partials.cdn')

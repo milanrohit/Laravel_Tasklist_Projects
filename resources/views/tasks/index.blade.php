@@ -30,12 +30,10 @@
         <div class="col">
           <div class="card h-100 shadow-sm border-0 rounded-3">
             <div class="card-body d-flex flex-column justify-content-between">
-              <div>
-                <h5 class="card-title text-primary">{{ $task->title }}</h5>
-                <div class="progress my-2" style="height: 6px;">
-                  <div class="progress-bar {{ $task->completed ? 'bg-success' : 'bg-warning' }}"
-                       style="width: {{ $task->completed ? '100%' : '50%' }}"></div>
-                </div>
+              <h5 class="card-title text-primary">{{ $task->title }}</h5>
+              <div class="progress my-2" style="height: 6px;">
+                <div class="progress-bar {{ $task->completed ? 'bg-success' : 'bg-warning' }}"
+                      style="width: {{ $task->completed ? '100%' : '50%' }}"></div>
               </div>
               <div class="mt-3 d-flex flex-wrap justify-content-between align-items-center">
                 <!-- ✅ Task Actions -->
@@ -66,15 +64,14 @@
                     </button>
                   </form>
                 </div>
-
-                <!-- ✅ Status Badge -->
-                <button class="badge {{ $task->completed ? 'bg-success' : 'bg-secondary' }} task-status"
-                        onclick="toggleStatus({{ $task->id }})"
-                        aria-label="Toggle status for task {{ $task->title }}">
-                  {{ $task->completed ? 'Done' : 'Active' }}
-                </button>
               </div>
             </div>
+          <!-- ✅ Status Badge -->
+            <button class="badge {{ $task->completed ? 'bg-success' : 'bg-secondary' }} task-status"
+                    onclick="toggleStatus({{ $task->id }})"
+                    aria-label="Toggle status for task {{ $task->title }}">
+              {{ $task->completed ? 'Done' : 'Active' }}
+            </button>
           </div>
         </div>
       @endforeach
@@ -101,33 +98,5 @@
 @endsection
 
 @section('scripts')
-  <script>
-    function toggleStatus(taskId) {
-      fetch(`/tasks/${taskId}/toggle-status`, {
-        method: 'POST',
-        headers: {
-          'X-CSRF-TOKEN': '{{ csrf_token() }}',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          location.reload();
-        } else {
-          alert('Failed to toggle task status.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while toggling status.');
-      });
-    }
-  
-    $(document).ready(function() {
-      $('#success-alert').fadeOut(3000, function() {
-        $(this).remove();
-        window.location.href = "{{ route('tasks.index') }}";
-      });
-    });
-  </script>
+    <script src="{{ asset('js/taskapp.js') }}"></script>
 @endsection
