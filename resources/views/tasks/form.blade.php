@@ -10,7 +10,13 @@
 <div class="container py-5">
     <div class="mb-3">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">{{ Breadcrumbs::render('tasks.show', $task) }}</ol>
+            <ol class="breadcrumb">
+                @isset($task)
+                    {{ Breadcrumbs::render('tasks.show', $task) }}
+                @else
+                    {{ Breadcrumbs::render('tasks.create') }}
+                @endisset
+            </ol>
         </nav>
 
         {{-- Main Task Form --}}
@@ -37,11 +43,15 @@
                         <label for="title" class="form-label">
                             <i class="bi bi-card-text"></i> Task Title
                         </label>
-                        <input type="text" name="title" id="title" value="{{ $task->title ?? old('title') }}" class="form-control rounded-3 shadow-sm" placeholder="Enter task title" required>
+                        <input type="text" name="title" id="title"
+                            value="{{ old('title', $task->title ?? '') }}"
+                            class="form-control rounded-3 shadow-sm"
+                            placeholder="Enter task title" required>
                         @error('title')
                             <div class="error-msg" id="div_title">{{ $message }}</div>
                         @enderror
                     </div>
+
 
                     {{-- Short Description --}}
                     <div class="mb-4">

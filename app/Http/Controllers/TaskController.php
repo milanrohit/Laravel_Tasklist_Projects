@@ -18,7 +18,8 @@ class TaskController extends Controller
     // Show form to create a task
     public function create()
     {
-        return view('tasks.create');
+        // Create an empty Task instance
+        return view('tasks.create', compact('task'));
     }
 
     // Store new task

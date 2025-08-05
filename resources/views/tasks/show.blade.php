@@ -11,7 +11,13 @@
   {{-- Breadcrumb Navigation --}}
   <div class="mb-3">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">{{ Breadcrumbs::render('tasks.show', $task) }}</ol>
+      <ol class="breadcrumb">
+          @isset($task)
+              {{ Breadcrumbs::render('tasks.show', $task) }}
+          @else
+              {{ Breadcrumbs::render('tasks.create') }}
+          @endisset
+      </ol>
     </nav>
   </div>
 
