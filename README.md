@@ -19,21 +19,21 @@ Software Engineer @ Civica
 
 ## 🧰 Tech Stack
 
-Here’s what powers this project:
-
-| Tool/Tech        | Version               | Why It’s Here                     |
-|------------------|-----------------------|-----------------------------------|
-| Laravel          | 12.21.0               | The heart of the app              |
-| PHP              | 8.2.12                | Backend logic and routing         |
-| Docker           | 28.1.1 (build 4eba377)| Containerized development         |
-| Git              | 2.49.0 (Windows)      | Version control                   |
-| Composer         | 2.7+                  | Dependency management             |
-| MySQL            | 8.0+                  | Database                          |
-| Node.js (optional)| 20.x                 | Frontend tooling & automation     |
+| Tool/Tech         | Version               | Purpose                            |
+|-------------------|-----------------------|------------------------------------|
+| Laravel           | 12.21.0               | Core framework                     |
+| PHP               | 8.2.12                | Backend logic                      |
+| Docker            | 28.1.1 (build 4eba377)| Containerized development          |
+| Git               | 2.49.0 (Windows)      | Version control                    |
+| Composer          | 2.7+                  | Dependency management              |
+| MySQL             | 8.0+                  | Relational database                |
+| Node.js (optional)| 20.x                  | Frontend tooling & automation      |
+| SonarQube         | Latest                | Code quality and static analysis   |
+| SonarLint (VS Code)| 4.27.0 (`sonarsource.sonarlint-vscode`) | Real-time linting and feedback     |
 
 ---
 
-## 🚀 What This App Can Do
+## 🚀 Features
 
 - ✅ Create, edit, view, and delete tasks  
 - 🔁 Toggle task status (complete/incomplete)  
@@ -43,13 +43,14 @@ Here’s what powers this project:
 - ⚙️ Configurable constants for messages, limits, and labels  
 - 🐳 Dockerized setup for consistency  
 - 📝 Automated changelog generation  
-- 🔐 Git hooks to enforce clean commit messages
+- 🔐 Git hooks to enforce clean commit messages  
+- 🧪 SonarQube & SonarLint integration for code quality
 
 ---
 
-## 📦 How to Get Started
+## 📦 Getting Started
 
-### 1. Clone the Repo
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/milanrohit/Laravel_Tasklist_Projects.git
 cd Laravel_Tasklist_Projects
@@ -67,7 +68,7 @@ php artisan key:generate
 docker-compose up -d
 ```
 
-> 🐋 Using Docker version: 28.1.1, build 4eba377
+> 🐋 Docker version: 28.1.1, build 4eba377
 
 ### 4. Run Migrations
 ```bash
@@ -78,11 +79,45 @@ php artisan migrate
 
 ## 🧠 Smart Design Choices
 
-- All task views (create/edit/show/index) use the same form partial for consistency  
-- Breadcrumbs update dynamically based on your route  
-- Constants like messages and pagination limits are stored in `config/constants.php` for easy reuse  
-- Toggle task status with a single click — handled cleanly in both controller and model  
-- Git commits follow Conventional Commit standards for clarity and automation
+- All task views (create/edit/show/index) use a shared form partial for consistency  
+- Breadcrumbs update dynamically based on the current route  
+- Constants like messages and pagination limits are stored in `config/constants.php`  
+- Task status toggling is handled cleanly in both controller and model  
+- Git commits follow Conventional Commit standards for clarity and automation  
+- SonarQube and SonarLint ensure code quality and rule enforcement
+
+---
+
+## 🧪 SonarQube & SonarLint Integration
+
+This project is integrated with SonarQube and SonarLint to maintain high code quality and enforce best practices.
+
+### 🔍 Tools Used
+
+| Tool         | Identifier                        | Version  |
+|--------------|------------------------------------|----------|
+| SonarLint    | `sonarsource.sonarlint-vscode`     | 4.27.0   |
+| SonarQube    | Latest (self-hosted or cloud)      | —        |
+
+### ✅ Rules Followed
+
+- No unused variables or imports  
+- Proper naming conventions for classes, methods, and variables  
+- Avoid deeply nested logic and long methods  
+- Ensure null safety and exception handling  
+- Maintain test coverage and avoid duplicated code  
+- Follow Laravel and PHP coding standards
+
+### 🛠️ Setup Tips
+
+To enable SonarLint in VS Code:
+
+1. Install the extension:  
+   `sonarsource.sonarlint-vscode` (v4.27.0)
+
+2. Connect to your SonarQube server (optional but recommended)
+
+3. Configure project bindings or use standalone mode for local analysis
 
 ---
 
@@ -100,9 +135,9 @@ return [
 
 ---
 
-## 🔄 Keeping Track of Changes
+## 🔄 Changelog Automation
 
-This project uses `standard-version` to automate changelog updates and semantic versioning.
+This project uses `standard-version` for semantic versioning and changelog generation.
 
 ### Setup:
 - `.versionrc` config for emoji-enhanced changelog sections
@@ -133,9 +168,9 @@ This project uses `standard-version` to automate changelog updates and semantic 
 
 ## 🔐 Commit Like a Pro
 
-To keep commits clean and consistent, this project uses:
+To maintain clean and consistent commits, this project uses:
 
-- Husky for Git hooks
+- Husky for Git hooks  
 - Commitlint to validate commit messages
 
 ### Example Valid Commits:
@@ -147,7 +182,10 @@ To keep commits clean and consistent, this project uses:
 
 ## 📖 License
 
-This project is open-source under the [MIT License](LICENSE). Feel free to fork, contribute, or use it as a base for your own ideas.
+This project is open-source under the [MIT License](LICENSE).  
+Feel free to fork, contribute, or use it as a base for your own ideas.
+
 ---
-Thanks for checking out the project!
+
+Thanks for checking out the project!  
 If you have feedback, ideas, or just want to say hi — I’d love to hear from you. 😊
