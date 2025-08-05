@@ -135,7 +135,7 @@ This project uses `standard-version` to automate changelog updates and semantic 
 
 To keep commits clean and consistent, this project uses:
 
-- Husky for Git hooks  
+- Husky for Git hooks
 - Commitlint to validate commit messages
 
 ### Example Valid Commits:
@@ -148,8 +148,6 @@ To keep commits clean and consistent, this project uses:
 ## 📖 License
 
 This project is open-source under the [MIT License](LICENSE). Feel free to fork, contribute, or use it as a base for your own ideas.
-
 ---
-
-Thanks for checking out the project!  
+Thanks for checking out the project!
 If you have feedback, ideas, or just want to say hi — I’d love to hear from you. 😊
