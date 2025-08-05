@@ -76,9 +76,6 @@ Route::delete('/tasks/{task}', function (Task $task) {
 })->name('tasks.destroy');
 
 // Toggle completed status of a task
-Route::put('/tasks/{task}/toggle-completed', function (Task $task) {
-    $task->toggleStatus();
-    
-    return redirect()->route('tasks.index')
-        ->with('success', config('constants.task_completed'));
-})->name('tasks.toggle-completed');
+Route::put('/tasks/{task}/toggle-completed', [TaskController::class, 'toggleCompleted'])
+    ->name('tasks.toggle-completed');
+

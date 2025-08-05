@@ -190,3 +190,8 @@ body {
     .card-body-120 {
     height: 120%;
 }
+
+#long_description{
+    height: 120px;
+    overflow-y: auto;
+}

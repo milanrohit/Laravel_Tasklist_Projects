@@ -42,10 +42,9 @@ class Task extends Model
     }
 
     // toggleStatus method is removed as per the recent edits
-     public function toggleStatus()
-     {
-         $this->completed = !$this->completed;
-         $this->save();
-         return $this->completed;
+    public function toggleStatus()
+    {
+        $this->completed = !$this->completed;
+        $this->save();
     }
 }

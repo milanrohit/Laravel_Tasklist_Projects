@@ -32,6 +32,7 @@
     @endif
 
     @isset($task)
+    
     <div class="card-body">
       {{-- Task Overview --}}
       <div class="mb-4 p-4 bg-light rounded shadow-sm border">
@@ -61,7 +62,7 @@
       <div class="row g-4">
         <div class="col-md-4">
           <div class="border rounded p-3 bg-light h-100">
-            <h6 class="text-secondary mb-2">📌 Status</h6>
+            <h6 class="text-secondary mb-2">📌 Task Status</h6>
             <span class="badge px-3 py-2 {{ $task->completed ? 'bg-success' : 'bg-warning text-dark' }}">
               <i class="bi {{ $task->completed ? 'bi-check-circle-fill' : 'bi-hourglass-split' }}"></i>
               {{ $task->completed ? 'Completed' : 'Pending' }}
@@ -91,28 +92,21 @@
 
     {{-- Footer Actions --}}
     <div class="card-footer bg-white px-4 py-3 d-flex justify-content-end gap-2 rounded-bottom shadow-sm">
-      {{-- Edit Button --}}
-      <form action="{{ route('tasks.edit', $task->id) }}" method="GET">
-        <button type="submit" class="btn btn-outline-primary d-flex align-items-center" aria-label="Edit Task">
-          <i class="bi bi-pencil-square me-2"></i> Edit
-        </button>
-      </form>
-
-      {{-- Toggle Completed Button --}}
-      <form action="{{ route('tasks.toggle-completed', $task->id) }}" method="POST" class="d-inline">
-        @csrf
-        @method('PUT')
-        <button type="submit" class="btn btn-outline-success d-flex align-items-center" aria-label="{{ $task->completed ? 'Mark as Pending' : 'Mark as Completed' }}">
-          <i class="bi {{ $task->completed ? 'bi-x-circle' : 'bi-check-circle' }} me-2"></i>
-          {{ $task->completed ? 'Mark as Pending' : 'Mark as Completed' }}
-        </button>
-      </form>
       
+      {{-- Start Toggle Completed Button --}}
+        <x-toggle-completed-button :task="$task" />
+      {{-- End Toggle Completed Button --}}
+
+      {{-- Edit Button --}}
+      <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-outline-primary d-flex align-items-center px-3 py-2 text-decoration-none" aria-label="Edit Task">
+        <i class="bi bi-pencil-square me-2"></i> Edit
+      </a>
+
       {{-- Delete Button --}}
-      <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?');">
+      <form action="{{ route('tasks.destroy', ['task' => $task]) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this task?');">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-outline-danger d-flex align-items-center" aria-label="Delete Task">
+        <button type="submit" class="btn btn-outline-danger d-flex align-items-center px-3 py-2" aria-label="Delete Task">
           <i class="bi bi-trash me-2"></i> Delete
         </button>
       </form>

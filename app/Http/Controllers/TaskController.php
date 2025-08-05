@@ -34,7 +34,7 @@ class TaskController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'long_description' => $request->long_description,
-            'completed' => false,
+            'completed' => $request->has('completed') ? true : false,
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Task created!');
@@ -57,6 +57,8 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'long_description' => 'nullable|string',
         ]);
 
         $task->update([
@@ -72,4 +74,14 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted!');
     }
+
+    // In TaskController.php
+    public function toggleCompleted(Task $task)
+    {
+        $task->toggleStatus();
+
+        return redirect()->route('tasks.home')
+            ->with('success', config('constants.task_completed'));
+    }
+
 }

@@ -7,6 +7,8 @@
 
 @section('content')
     @include('tasks.form',['task' => isset($task) ? $task : null])
+
+    
 @endsection
 
 @section('scripts')
