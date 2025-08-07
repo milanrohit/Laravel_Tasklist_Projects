@@ -38,12 +38,8 @@ Route::get('/tasks/create', function () {
 })->name('tasks.create');
 
 // Store - Save new task
-Route::post('/tasks', function (TaskRequest $request) {
-    $task = Task::create($request->validated());
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 
-    return redirect()->route('tasks.show', ['task' => $task->id])
-        ->with('success', config('constants.task_created'));
-})->name('tasks.store');
 
 // Show - Display a specific task
 Route::get($route = config('constants.tasks_task'), function (Task $task) {

@@ -16,16 +16,14 @@ class Task extends Model
         'completed'
     ];
 
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
-    ];
-
     protected $casts = [
         'completed' => 'boolean',
     ];
 
+    protected $attributes = [
+        'completed' => false,
+    ];
+    
     public function scopeLatest($query)
     {
         return $query->orderBy('created_at', 'desc');
